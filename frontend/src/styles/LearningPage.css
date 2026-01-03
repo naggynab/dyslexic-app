@@ -1,8 +1,8 @@
-.learning-container {
+. learning-container {
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
-  min-height:  100vh;
+  min-height: 100vh;
 }
 
 .learning-header {
@@ -12,11 +12,19 @@
   margin-bottom:  30px;
 }
 
-. back-btn {
+.back-btn {
   background: #f5f5f5;
   color: #333;
   font-size: 18px;
   padding: 12px 20px;
+  border:  none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.back-btn:hover {
+  background: #e0e0e0;
 }
 
 .progress-bar {
@@ -38,14 +46,14 @@
   font-weight: bold;
   color: #667eea;
   min-width: 80px;
-  text-align: center;
+  text-align:  center;
 }
 
 .lesson-content {
   background: white;
   border-radius: 20px;
   padding: 40px;
-  box-shadow:  0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .letter-display {
@@ -60,54 +68,110 @@
 }
 
 .audio-btn-large {
-  font-size:  48px;
+  font-size: 48px;
   background: #4CAF50;
-  color: white;
+  color:  white;
   padding: 15px 20px;
+  border:  none;
+  border-radius:  15px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
 }
+
+.audio-btn-large:hover {
+  transform: scale(1.1);
+  background: #45a049;
+}
+
 
 .image-display {
   text-align: center;
   margin: 40px 0;
+  padding: 20px;
+  background: rgba(240, 240, 240, 0.3);
+  border-radius: 15px;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-. emoji-image {
+
+.lesson-image {
+  width: 250px;
+  height: 250px;
+  object-fit:  contain;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 3px solid #f0f0f0;
+  background: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lesson-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Keep emoji styling for backward compatibility */
+.emoji-image {
   font-size: 150px;
   display: inline-block;
   animation: bounce 1s ease infinite;
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform:  translateY(-10px); }
+  0%, 100% { 
+    transform: translateY(0); 
+  }
+  50% { 
+    transform: translateY(-10px); 
+  }
 }
 
-.word-display {
+
+
+. word-display {
   text-align: center;
-  margin: 30px 0;
+  margin:  30px 0;
 }
 
-. word-display h2 {
+.word-display h2 {
   font-size: 48px;
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom:  10px;
+  display: inline-block;
 }
 
-.word-display . audio-btn {
-  background: #FF9800;
+. word-display . audio-btn {
+  background:  #FF9800;
   color: white;
-  margin:  0 10px;
+  margin: 0 10px;
   font-size: 24px;
+  border:  none;
+  border-radius:  50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+  vertical-align: middle;
 }
 
-.meaning {
-  font-size: 24px;
-  color: #999;
+.word-display .audio-btn:hover {
+  transform: scale(1.1);
+  background: #F57C00;
+}
+
+. meaning {
+  font-size:  24px;
+  color:  #999;
   margin-top: 10px;
 }
 
+
+
 .interactive-section {
-  margin:  50px 0;
+  margin: 50px 0;
   padding: 30px;
   background: #f9f9f9;
   border-radius: 15px;
@@ -115,7 +179,7 @@
 
 .instruction {
   font-size: 24px;
-  margin-bottom:  20px;
+  margin-bottom: 20px;
   text-align: center;
   color: #555;
 }
@@ -129,6 +193,14 @@
   text-align: center;
   padding: 20px;
   border: 3px solid #667eea;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.answer-input:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
 }
 
 .check-btn {
@@ -138,7 +210,22 @@
   color: white;
   font-size: 24px;
   padding: 15px 40px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
 }
+
+.check-btn:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+}
+
+.check-btn:active {
+  transform: translateY(0);
+}
+
+
 
 .feedback {
   text-align: center;
@@ -147,12 +234,13 @@
   border-radius: 10px;
   margin-top: 20px;
   animation: slideIn 0.3s ease;
+  font-weight: bold;
 }
 
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform:  translateY(-10px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -165,10 +253,12 @@
   color: #2E7D32;
 }
 
-. feedback.incorrect {
+.feedback.incorrect {
   background: #FFCDD2;
   color: #C62828;
 }
+
+
 
 .lesson-navigation {
   display: flex;
@@ -179,10 +269,23 @@
 
 .nav-btn-lesson {
   flex: 1;
-  background:  #667eea;
+  background: #667eea;
   color: white;
   font-size: 20px;
   padding: 18px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition:  background 0.3s, transform 0.2s;
+}
+
+.nav-btn-lesson:hover: not(:disabled) {
+  background: #5568d3;
+  transform: translateY(-2px);
+}
+
+.nav-btn-lesson:active: not(:disabled) {
+  transform: translateY(0);
 }
 
 .nav-btn-lesson:disabled {
@@ -191,9 +294,231 @@
   opacity: 0.5;
 }
 
+
 .loading {
   text-align: center;
   font-size: 32px;
   padding: 100px;
   color: #667eea;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity:  0.5;
+  }
+}
+
+
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+  .learning-container {
+    padding: 15px;
+  }
+
+  .lesson-content {
+    padding: 30px 20px;
+  }
+
+  .letter-display {
+    font-size: 90px;
+    gap: 15px;
+  }
+
+  . audio-btn-large {
+    font-size: 36px;
+    padding: 12px 16px;
+  }
+
+  /* Image sizing for tablets */
+  .image-display {
+    margin: 30px 0;
+    padding: 15px;
+    min-height: 240px;
+  }
+
+  . lesson-image {
+    width:  200px;
+    height:  200px;
+  }
+
+  .emoji-image {
+    font-size: 120px;
+  }
+
+  . word-display h2 {
+    font-size: 36px;
+  }
+
+  .word-display .audio-btn {
+    font-size: 20px;
+    width: 45px;
+    height: 45px;
+  }
+
+  . meaning {
+    font-size:  20px;
+  }
+
+  .interactive-section {
+    padding: 20px;
+    margin: 30px 0;
+  }
+
+  .instruction {
+    font-size: 20px;
+  }
+
+  .answer-input {
+    font-size: 28px;
+    padding: 15px;
+    max-width: 350px;
+  }
+
+  . check-btn {
+    font-size: 20px;
+    padding: 12px 30px;
+  }
+
+  .feedback {
+    font-size: 24px;
+    padding: 15px;
+  }
+
+  .nav-btn-lesson {
+    font-size: 18px;
+    padding: 14px 20px;
+  }
+}
+
+/* Mobile Phones (480px and below) */
+@media (max-width:  480px) {
+  .learning-header {
+    gap: 10px;
+  }
+
+  .back-btn {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+
+  .lesson-counter {
+    font-size: 18px;
+    min-width: 60px;
+  }
+
+  .lesson-content {
+    padding: 20px 15px;
+  }
+
+  .letter-display {
+    font-size: 70px;
+    gap: 10px;
+  }
+
+  . audio-btn-large {
+    font-size: 28px;
+    padding: 10px 12px;
+  }
+
+  /* Image sizing for mobile */
+  . image-display {
+    margin:  20px 0;
+    padding: 10px;
+    min-height: 180px;
+  }
+
+  . lesson-image {
+    width:  150px;
+    height:  150px;
+  }
+
+  .emoji-image {
+    font-size: 100px;
+  }
+
+  . word-display h2 {
+    font-size: 28px;
+  }
+
+  . word-display .audio-btn {
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+  }
+
+  . meaning {
+    font-size:  18px;
+  }
+
+  .interactive-section {
+    padding: 15px;
+    margin: 20px 0;
+  }
+
+  .instruction {
+    font-size: 18px;
+  }
+
+  . answer-input {
+    font-size: 24px;
+    padding: 12px;
+    max-width: 300px;
+  }
+
+  .check-btn {
+    font-size:  18px;
+    padding: 10px 25px;
+  }
+
+  . feedback {
+    font-size:  20px;
+    padding:  12px;
+  }
+
+  . lesson-navigation {
+    gap: 10px;
+  }
+
+  . nav-btn-lesson {
+    font-size: 16px;
+    padding: 12px 15px;
+  }
+
+  .loading {
+    font-size: 24px;
+    padding: 60px 20px;
+  }
+}
+
+/* Very Small Screens (320px and below) */
+@media (max-width: 320px) {
+  .letter-display {
+    font-size: 60px;
+  }
+
+  .image-display {
+    min-height: 150px;
+  }
+
+  . lesson-image {
+    width:  120px;
+    height:  120px;
+  }
+
+  .emoji-image {
+    font-size: 80px;
+  }
+
+  .word-display h2 {
+    font-size: 24px;
+  }
+
+  .answer-input {
+    font-size: 20px;
+  }
 }
