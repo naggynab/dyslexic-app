@@ -8,10 +8,10 @@ from models.adaptive_learning import AdaptiveLearning
 app = Flask(__name__)
 CORS(app)
 
-# Initialize AI model
+
 adaptive_model = AdaptiveLearning()
 
-# Load Nepali content
+
 def load_content():
     content_path = os.path.join('data', 'nepali_content. json')
     if os.path.exists(content_path):
@@ -75,10 +75,10 @@ def get_lesson():
     """Get adaptive lesson based on user progress"""
     user_id = request.args.get('userId', 'user1')
     
-    # Load content
+    
     content = load_content()
     
-    # Get personalized lesson order from AI
+    
     personalized_lessons = adaptive_model.get_next_lessons(user_id, content['lessons'])
     
     return jsonify({
@@ -95,7 +95,7 @@ def record_progress():
     correct = data.get('correct')
     timestamp = data.get('timestamp')
     
-    # Update AI model
+    
     adaptive_model.record_attempt(user_id, lesson_id, correct, timestamp)
     
     return jsonify({
