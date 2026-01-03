@@ -530,14 +530,6 @@ Contributions are welcome! Here's how you can help:
 
 
 
-## 📊 Project Stats
-
-![Language Composition](https://img.shields.io/badge/JavaScript-49. 7%25-yellow)
-![Language Composition](https://img.shields.io/badge/CSS-25.3%25-blue)
-![Language Composition](https://img.shields.io/badge/Python-24.1%25-blue)
-![Language Composition](https://img.shields.io/badge/HTML-0.9%25-orange)
-
----
 
 **Made with ❤️ for dyslexic learners**
 
