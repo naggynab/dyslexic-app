@@ -49,7 +49,7 @@ function LearningPage({ settings }) {
         letter: 'आ',
         audio: 'aa',
         image: '🥭',
-        word: 'आम',
+        word: 'आँप',
         meaning: 'Mango'
       },
       {
@@ -64,10 +64,10 @@ function LearningPage({ settings }) {
       {
         id: 4,
         type: 'letter',
-        letter: 'क',
+        letter: 'प',
         audio: 'ka',
         image: '🐦',
-        word: 'कबुतर',
+        word: 'परेवा',
         meaning: 'Pigeon'
       },
       {
