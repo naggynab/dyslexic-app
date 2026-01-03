@@ -5,11 +5,11 @@ import { useSpeech } from '../hooks/useSpeech';
 import '../styles/LearningPage.css';
 
 // Import images
-import anarImg from '../assets/images/letters/anar.jpg';
-import aamImg from '../assets/images/letters/aap.jpg';
-import ittaImg from '../assets/images/letters/itta.jpg';
-import parewaImg from '../assets/images/letters/parewa.webp';
-import kharayoImg from '../assets/images/letters/kharayo.jpg';
+import anarImg from '../assets/images/anar.jpg';
+import aamImg from '../assets/images/aap.jpg';
+import ittaImg from '../assets/images/itta.jpg';
+import parewaImg from '../assets/images/parewa.webp';
+import kharayoImg from '../assets/images/kharayo.jpg';
 
 function LearningPage({ settings }) {
   const navigate = useNavigate();
