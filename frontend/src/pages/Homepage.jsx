@@ -49,10 +49,10 @@ function HomePage({ userName }) {
       <button className="main-btn continue-btn" onClick={handleContinueLearning}>
         <span className="btn-icon">📖</span>
         <span className="btn-text">सिक्न जारी राख्नुहोस्</span>
-        <button className="audio-icon" onClick={(e) => {
+        <span className="audio-icon" onClick={(e) => {
           e.stopPropagation();
           speak('सिक्न जारी राख्नुहोस्');
-        }}>🔊</button>
+        }}>🔊</span>
       </button>
 
       {/* Navigation Buttons */}

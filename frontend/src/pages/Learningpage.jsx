@@ -103,7 +103,9 @@ function LearningPage({ settings }) {
       setFeedback('');
       
       // Send progress to AI backend
-      await sendProgressToAI(currentLesson.id, true);
+      if (currentLesson && currentLesson.id) {
+        await sendProgressToAI(currentLesson.id, true);
+      }
     } else {
       // Lesson complete
       updateProgress();
@@ -123,10 +125,14 @@ function LearningPage({ settings }) {
   };
 
   const checkAnswer = async () => {
+    if (!currentLesson) return;
+    
     if (userAnswer.trim() === currentLesson.letter) {
       setFeedback('✅ उत्कृष्ट! सही उत्तर! ');
       speakText('उत्कृष्ट');
-      await sendProgressToAI(currentLesson.id, true);
+      if (currentLesson.id) {
+        await sendProgressToAI(currentLesson.id, true);
+      }
       
       setTimeout(() => {
         handleNext();
@@ -134,7 +140,9 @@ function LearningPage({ settings }) {
     } else {
       setFeedback('❌ पुन: प्रयास गर्नुहोस्');
       speakText('पुन: प्रयास गर्नुहोस्');
-      await sendProgressToAI(currentLesson.id, false);
+      if (currentLesson.id) {
+        await sendProgressToAI(currentLesson.id, false);
+      }
     }
   };
 
