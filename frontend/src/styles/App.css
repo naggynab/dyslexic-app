@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+. App {
+  min-height:  100vh;
+  font-family: 'Comic Sans MS', 'Arial', sans-serif;
+  transition: all 0.3s ease;
+}
+
+/* Dyslexia-friendly styles */
+body {
+  line-height: 1.8;
+  letter-spacing: 0.12em;
+  word-spacing: 0.16em;
+}
+
+button {
+  cursor: pointer;
+  border:  none;
+  border-radius: 12px;
+  padding: 15px 25px;
+  font-size:  18px;
+  font-family: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 15px;
+  border: 2px solid #ccc;
+  border-radius:  8px;
+  letter-spacing: 0.1em;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}

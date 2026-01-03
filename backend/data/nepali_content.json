@@ -1,0 +1,76 @@
+{
+  "lessons": [
+    {
+      "id": 1,
+      "type": "letter",
+      "letter": "अ",
+      "audio": "a",
+      "image": "🍎",
+      "word": "अनार",
+      "meaning": "Pomegranate"
+    },
+    {
+      "id":  2,
+      "type":  "letter",
+      "letter":  "आ",
+      "audio": "aa",
+      "image": "🥭",
+      "word": "आम",
+      "meaning": "Mango"
+    },
+    {
+      "id": 3,
+      "type": "letter",
+      "letter": "इ",
+      "audio": "i",
+      "image": "🧱",
+      "word": "इँटा",
+      "meaning":  "Brick"
+    },
+    {
+      "id": 4,
+      "type": "letter",
+      "letter": "ई",
+      "audio": "ee",
+      "image": "🧱",
+      "word": "ईंट",
+      "meaning": "Brick"
+    },
+    {
+      "id": 5,
+      "type": "letter",
+      "letter": "क",
+      "audio": "ka",
+      "image": "🐦",
+      "word":  "कबुतर",
+      "meaning": "Pigeon"
+    },
+    {
+      "id": 6,
+      "type": "letter",
+      "letter": "ख",
+      "audio":  "kha",
+      "image": "🐰",
+      "word": "खरायो",
+      "meaning": "Rabbit"
+    },
+    {
+      "id": 7,
+      "type": "letter",
+      "letter": "ग",
+      "audio": "ga",
+      "image": "🐄",
+      "word": "गाई",
+      "meaning": "Cow"
+    },
+    {
+      "id": 8,
+      "type": "letter",
+      "letter": "घ",
+      "audio": "gha",
+      "image": "🏠",
+      "word": "घर",
+      "meaning":  "House"
+    }
+  ]
+}
