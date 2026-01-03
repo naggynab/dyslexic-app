@@ -14,7 +14,7 @@ function App() {
     fontSize: 'large',
     backgroundColor: '#FAFAF8',
     textColor: '#333333',
-    audioSpeed: 0.8  // ✅ Changed from 1.0 to 0.8 (safer default)
+    audioSpeed: 0.8  
   });
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function App() {
           backgroundColor: settings.backgroundColor,
           color: settings.textColor,
           fontSize: settings.fontSize === 'large' ? '20px' : settings.fontSize === 'xlarge' ? '24px' :  '16px',
-          minHeight: '100vh'  // ✅ Added to ensure full page coverage
+          minHeight: '100vh'  
         }}
       >
         <Routes>
