@@ -141,3 +141,12 @@
 .footer-btn:hover {
   background: #e0e0e0;
 }
+
+.games-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin-top: 15px;
+}
+
+.games-button:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
