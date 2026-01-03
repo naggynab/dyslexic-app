@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './styles/App.css';
 
-// Pages
+// Existing Pages
 import HomePage from './pages/Homepage';
 import LearningPage from './pages/Learningpage';
 import ProgressPage from './pages/ProgressPage';
 import SettingsPage from './pages/Settingspage';
+
+// ✅ NEW: Game Pages
+import GamesPage from './pages/GamesPage';
+import DragDropGame from './pages/DragDropGame';
+import NumberShooterGame from './pages/NumberShooterGame';
 
 function App() {
   const [userName, setUserName] = useState('बच्चा');
@@ -18,7 +23,6 @@ function App() {
   });
 
   useEffect(() => {
-    // Load user data from localStorage
     const savedName = localStorage.getItem('userName');
     const savedSettings = localStorage.getItem('settings');
     
@@ -33,7 +37,7 @@ function App() {
         style={{
           backgroundColor: settings.backgroundColor,
           color: settings.textColor,
-          fontSize: settings.fontSize === 'large' ? '20px' : settings.fontSize === 'xlarge' ? '24px' :  '16px',
+          fontSize: settings.fontSize === 'large' ? '20px' : settings.fontSize === 'xlarge' ? '24px' : '16px',
           minHeight: '100vh'  
         }}
       >
@@ -51,6 +55,11 @@ function App() {
               />
             } 
           />
+          
+          {/* ✅ NEW ROUTES */}
+          <Route path="/games" element={<GamesPage />} />
+          <Route path="/games/drag-drop" element={<DragDropGame settings={settings} />} />
+          <Route path="/games/number-shooter" element={<NumberShooterGame settings={settings} />} />
         </Routes>
       </div>
     </Router>
