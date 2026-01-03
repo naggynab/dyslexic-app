@@ -56,6 +56,10 @@ function HomePage({ userName }) {
           e.stopPropagation();
           speak('सिक्न जारी राख्नुहोस्');
         }}>🔊</button>
+        <button className="cta-button games-button" onClick={() => navigate('/games')}>
+      🎮 खेलहरू
+      </button>
+        
       </button>
 
       {/* Navigation Buttons */}
