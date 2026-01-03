@@ -65,7 +65,7 @@ function LearningPage({ settings }) {
         id: 4,
         type: 'letter',
         letter: 'प',
-        audio: 'ka',
+        audio: 'pa',
         image: '🐦',
         word: 'परेवा',
         meaning: 'Pigeon'
