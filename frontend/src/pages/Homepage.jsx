@@ -5,7 +5,7 @@ import '../styles/HomePage.css';
 
 function HomePage({ userName }) {
   const navigate = useNavigate();
-  const { speak } = useSpeech();  // ✅ Use the hook
+  const { speak } = useSpeech(); 
   const [progress, setProgress] = useState({ stars: 0, lessonsCompleted: 0 });
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function HomePage({ userName }) {
       setProgress(JSON.parse(savedProgress));
     }
 
-    // ✅ Welcome message - directly use speak
+    
     speak(`नमस्ते ${userName}`);
   }, [userName]);
 
