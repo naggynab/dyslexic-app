@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';  // ✅ Added missing import
-import { useSpeech } from '../hooks/useSpeech';  // ✅ Correct import
+import axios from 'axios';  
+import { useSpeech } from '../hooks/useSpeech'; 
 import '../styles/LearningPage.css';
 
 function LearningPage({ settings }) {
   const navigate = useNavigate();
-  const { speak } = useSpeech();  // ✅ FIXED: Use useSpeech() not useSpeechSynthesis()
+  const { speak } = useSpeech();  
   const [currentLesson, setCurrentLesson] = useState(null);
   const [lessons, setLessons] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
