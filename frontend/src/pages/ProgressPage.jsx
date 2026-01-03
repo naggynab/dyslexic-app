@@ -13,7 +13,7 @@ function ProgressPage() {
   const fetchAIInsights = useCallback(async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/get-insights', {
-        params: { userId:  'user1' }
+        params: { userId: 'user1' }
       });
       setAiInsights(response.data);
     } catch (error) {
@@ -43,7 +43,7 @@ function ProgressPage() {
 
         <div className="stat-card">
           <div className="stat-icon">📚</div>
-          <div className="stat-value">{progress. lessonsCompleted}</div>
+          <div className="stat-value">{progress.lessonsCompleted}</div>
           <div className="stat-label">पूरा पाठहरू</div>
         </div>
 
@@ -60,7 +60,7 @@ function ProgressPage() {
           <div className="insight-card">
             <p><strong>शक्ति:</strong> {aiInsights.strengths || 'स्वर पहिचान'}</p>
             <p><strong>सुधार क्षेत्र:</strong> {aiInsights.improvements || 'व्यञ्जन अभ्यास'}</p>
-            <p><strong>सिफारिस:</strong> {aiInsights. recommendation || 'दैनिक १५ मिनेट अभ्यास गर्नुहोस्'}</p>
+            <p><strong>सिफारिस:</strong> {aiInsights.recommendation || 'दैनिक १५ मिनेट अभ्यास गर्नुहोस्'}</p>
           </div>
         </div>
       )}

@@ -34,7 +34,7 @@ function HomePage({ userName }) {
       <div className="profile-section">
         <div className="avatar">👦</div>
         <div className="stars">
-          {[... Array(5)].map((_, i) => (
+          {[...Array(5)].map((_, i) => (
             <span key={i} className="star">
               {i < progress.stars ? '⭐' : '☆'}
             </span>

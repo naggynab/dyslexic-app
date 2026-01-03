@@ -71,8 +71,8 @@ function LearningPage({ settings }) {
   const fetchLessons = useCallback(async () => {
     try {
       // Call Python backend for adaptive content
-      const response = await axios. get('http://localhost:5000/api/get-lesson');
-      setLessons(response.data. lessons);
+      const response = await axios.get('http://localhost:5000/api/get-lesson');
+      setLessons(response.data.lessons);
       setCurrentLesson(response.data.lessons[0]);
       setLoading(false);
     } catch (error) {
@@ -90,7 +90,7 @@ function LearningPage({ settings }) {
   const speakText = (text) => {
     speak(text, { 
       lang: 'ne-NP', 
-      rate:  settings?. audioSpeed || 0.8 
+      rate: settings?.audioSpeed || 0.8 
     });
   };
 
@@ -162,12 +162,12 @@ function LearningPage({ settings }) {
   const updateProgress = () => {
     const savedProgress = JSON.parse(localStorage.getItem('progress')) || { stars: 0, lessonsCompleted: 0 };
     savedProgress.lessonsCompleted += 1;
-    savedProgress. stars = Math.min(5, savedProgress.stars + 1);
+    savedProgress.stars = Math.min(5, savedProgress.stars + 1);
     localStorage.setItem('progress', JSON.stringify(savedProgress));
   };
 
   if (loading) {
-    return <div className="loading">लोड हुँदैछ... </div>;
+    return <div className="loading">लोड हुँदैछ...</div>;
   }
 
   if (!currentLesson) {
@@ -193,7 +193,7 @@ function LearningPage({ settings }) {
       {/* Main Content */}
       <div className="lesson-content">
         <h1 className="letter-display">
-          {currentLesson. letter}
+          {currentLesson.letter}
           <button className="audio-btn-large" onClick={() => speakText(currentLesson.letter)}>
             🔊
           </button>
@@ -218,7 +218,7 @@ function LearningPage({ settings }) {
             type="text"
             className="answer-input"
             value={userAnswer}
-            onChange={(e) => setUserAnswer(e. target.value)}
+            onChange={(e) => setUserAnswer(e.target.value)}
             placeholder="यहाँ लेख्नुहोस्..."
           />
           <button className="check-btn" onClick={checkAnswer}>

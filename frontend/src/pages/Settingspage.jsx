@@ -9,7 +9,7 @@ function SettingsPage({ settings, setSettings, setUserName }) {
   const handleFontSizeChange = (size) => {
     const newSettings = { ...settings, fontSize: size };
     setSettings(newSettings);
-    localStorage.setItem('settings', JSON. stringify(newSettings));
+    localStorage.setItem('settings', JSON.stringify(newSettings));
   };
 
   const handleBackgroundChange = (color) => {
