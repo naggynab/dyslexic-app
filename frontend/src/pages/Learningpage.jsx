@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';  // ✅ Added missing import
 import { useSpeech } from '../hooks/useSpeech';  // ✅ Correct import
@@ -14,25 +14,7 @@ function LearningPage({ settings }) {
   const [feedback, setFeedback] = useState('');
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchLessons();
-  }, []);
-
-  const fetchLessons = async () => {
-    try {
-      // Call Python backend for adaptive content
-      const response = await axios. get('http://localhost:5000/api/get-lesson');
-      setLessons(response.data. lessons);
-      setCurrentLesson(response.data.lessons[0]);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching lessons:', error);
-      // Fallback to static content
-      loadStaticLessons();
-    }
-  };
-
-  const loadStaticLessons = () => {
+  const loadStaticLessons = useCallback(() => {
     const staticLessons = [
       {
         id: 1,
@@ -84,13 +66,31 @@ function LearningPage({ settings }) {
     setLessons(staticLessons);
     setCurrentLesson(staticLessons[0]);
     setLoading(false);
-  };
+  }, []);
+
+  const fetchLessons = useCallback(async () => {
+    try {
+      // Call Python backend for adaptive content
+      const response = await axios.get('http://localhost:5000/api/get-lesson');
+      setLessons(response.data.lessons);
+      setCurrentLesson(response.data.lessons[0]);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching lessons:', error);
+      // Fallback to static content
+      loadStaticLessons();
+    }
+  }, [loadStaticLessons]);
+
+  useEffect(() => {
+    fetchLessons();
+  }, [fetchLessons]);
 
   // ✅ FIXED: Updated speakText to work with custom hook
   const speakText = (text) => {
     speak(text, { 
       lang: 'ne-NP', 
-      rate:  settings?. audioSpeed || 0.8 
+      rate: settings?.audioSpeed || 0.8 
     });
   };
 
@@ -103,7 +103,9 @@ function LearningPage({ settings }) {
       setFeedback('');
       
       // Send progress to AI backend
-      await sendProgressToAI(currentLesson.id, true);
+      if (currentLesson && currentLesson.id) {
+        await sendProgressToAI(currentLesson.id, true);
+      }
     } else {
       // Lesson complete
       updateProgress();
@@ -123,10 +125,14 @@ function LearningPage({ settings }) {
   };
 
   const checkAnswer = async () => {
+    if (!currentLesson) return;
+    
     if (userAnswer.trim() === currentLesson.letter) {
       setFeedback('✅ उत्कृष्ट! सही उत्तर! ');
       speakText('उत्कृष्ट');
-      await sendProgressToAI(currentLesson.id, true);
+      if (currentLesson.id) {
+        await sendProgressToAI(currentLesson.id, true);
+      }
       
       setTimeout(() => {
         handleNext();
@@ -134,7 +140,9 @@ function LearningPage({ settings }) {
     } else {
       setFeedback('❌ पुन: प्रयास गर्नुहोस्');
       speakText('पुन: प्रयास गर्नुहोस्');
-      await sendProgressToAI(currentLesson.id, false);
+      if (currentLesson.id) {
+        await sendProgressToAI(currentLesson.id, false);
+      }
     }
   };
 
@@ -154,12 +162,12 @@ function LearningPage({ settings }) {
   const updateProgress = () => {
     const savedProgress = JSON.parse(localStorage.getItem('progress')) || { stars: 0, lessonsCompleted: 0 };
     savedProgress.lessonsCompleted += 1;
-    savedProgress. stars = Math.min(5, savedProgress.stars + 1);
+    savedProgress.stars = Math.min(5, savedProgress.stars + 1);
     localStorage.setItem('progress', JSON.stringify(savedProgress));
   };
 
   if (loading) {
-    return <div className="loading">लोड हुँदैछ... </div>;
+    return <div className="loading">लोड हुँदैछ...</div>;
   }
 
   if (!currentLesson) {
@@ -185,7 +193,7 @@ function LearningPage({ settings }) {
       {/* Main Content */}
       <div className="lesson-content">
         <h1 className="letter-display">
-          {currentLesson. letter}
+          {currentLesson.letter}
           <button className="audio-btn-large" onClick={() => speakText(currentLesson.letter)}>
             🔊
           </button>
@@ -210,7 +218,7 @@ function LearningPage({ settings }) {
             type="text"
             className="answer-input"
             value={userAnswer}
-            onChange={(e) => setUserAnswer(e. target.value)}
+            onChange={(e) => setUserAnswer(e.target.value)}
             placeholder="यहाँ लेख्नुहोस्..."
           />
           <button className="check-btn" onClick={checkAnswer}>

@@ -6,18 +6,15 @@ import '../styles/HomePage.css';
 function HomePage({ userName }) {
   const navigate = useNavigate();
   const { speak } = useSpeech();  // ✅ Use the hook
-  const [progress, setProgress] = useState({ stars: 0, lessonsCompleted: 0 });
+  const [progress] = useState(() => {
+    const savedProgress = localStorage.getItem('progress');
+    return savedProgress ? JSON.parse(savedProgress) : { stars: 0, lessonsCompleted: 0 };
+  });
 
   useEffect(() => {
-    // Load progress from localStorage
-    const savedProgress = localStorage. getItem('progress');
-    if (savedProgress) {
-      setProgress(JSON.parse(savedProgress));
-    }
-
     // ✅ Welcome message - directly use speak
     speak(`नमस्ते ${userName}`);
-  }, [userName]);
+  }, [userName, speak]);
 
   const handleContinueLearning = () => {
     navigate('/learning');
@@ -37,7 +34,7 @@ function HomePage({ userName }) {
       <div className="profile-section">
         <div className="avatar">👦</div>
         <div className="stars">
-          {[... Array(5)].map((_, i) => (
+          {[...Array(5)].map((_, i) => (
             <span key={i} className="star">
               {i < progress.stars ? '⭐' : '☆'}
             </span>
@@ -52,10 +49,10 @@ function HomePage({ userName }) {
       <button className="main-btn continue-btn" onClick={handleContinueLearning}>
         <span className="btn-icon">📖</span>
         <span className="btn-text">सिक्न जारी राख्नुहोस्</span>
-        <button className="audio-icon" onClick={(e) => {
+        <span className="audio-icon" onClick={(e) => {
           e.stopPropagation();
           speak('सिक्न जारी राख्नुहोस्');
-        }}>🔊</button>
+        }}>🔊</span>
       </button>
 
       {/* Navigation Buttons */}

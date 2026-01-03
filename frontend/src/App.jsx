@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './styles/App.css';
 
@@ -9,22 +9,18 @@ import ProgressPage from './pages/ProgressPage';
 import SettingsPage from './pages/Settingspage';
 
 function App() {
-  const [userName, setUserName] = useState('बच्चा');
-  const [settings, setSettings] = useState({
-    fontSize: 'large',
-    backgroundColor: '#FAFAF8',
-    textColor: '#333333',
-    audioSpeed: 0.8  // ✅ Changed from 1.0 to 0.8 (safer default)
+  const [userName, setUserName] = useState(() => {
+    return localStorage.getItem('userName') || 'बच्चा';
   });
-
-  useEffect(() => {
-    // Load user data from localStorage
-    const savedName = localStorage.getItem('userName');
+  const [settings, setSettings] = useState(() => {
     const savedSettings = localStorage.getItem('settings');
-    
-    if (savedName) setUserName(savedName);
-    if (savedSettings) setSettings(JSON.parse(savedSettings));
-  }, []);
+    return savedSettings ? JSON.parse(savedSettings) : {
+      fontSize: 'large',
+      backgroundColor: '#FAFAF8',
+      textColor: '#333333',
+      audioSpeed: 0.8  // ✅ Changed from 1.0 to 0.8 (safer default)
+    };
+  });
 
   return (
     <Router>

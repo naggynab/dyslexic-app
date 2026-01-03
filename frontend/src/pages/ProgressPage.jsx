@@ -1,33 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/ProgressPage.css';
 
 function ProgressPage() {
   const navigate = useNavigate();
-  const [progress, setProgress] = useState({ stars: 0, lessonsCompleted: 0 });
+  const [progress] = useState(() => {
+    return JSON.parse(localStorage.getItem('progress')) || { stars: 0, lessonsCompleted: 0 };
+  });
   const [aiInsights, setAiInsights] = useState(null);
 
-  useEffect(() => {
-    loadProgress();
-    fetchAIInsights();
-  }, []);
-
-  const loadProgress = () => {
-    const savedProgress = JSON.parse(localStorage.getItem('progress')) || { stars: 0, lessonsCompleted: 0 };
-    setProgress(savedProgress);
-  };
-
-  const fetchAIInsights = async () => {
+  const fetchAIInsights = useCallback(async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/get-insights', {
-        params: { userId:  'user1' }
+        params: { userId: 'user1' }
       });
       setAiInsights(response.data);
     } catch (error) {
       console.error('Error fetching AI insights:', error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchAIInsights();
+  }, [fetchAIInsights]);
 
   return (
     <div className="progress-container">
@@ -47,7 +43,7 @@ function ProgressPage() {
 
         <div className="stat-card">
           <div className="stat-icon">📚</div>
-          <div className="stat-value">{progress. lessonsCompleted}</div>
+          <div className="stat-value">{progress.lessonsCompleted}</div>
           <div className="stat-label">पूरा पाठहरू</div>
         </div>
 
@@ -64,7 +60,7 @@ function ProgressPage() {
           <div className="insight-card">
             <p><strong>शक्ति:</strong> {aiInsights.strengths || 'स्वर पहिचान'}</p>
             <p><strong>सुधार क्षेत्र:</strong> {aiInsights.improvements || 'व्यञ्जन अभ्यास'}</p>
-            <p><strong>सिफारिस:</strong> {aiInsights. recommendation || 'दैनिक १५ मिनेट अभ्यास गर्नुहोस्'}</p>
+            <p><strong>सिफारिस:</strong> {aiInsights.recommendation || 'दैनिक १५ मिनेट अभ्यास गर्नुहोस्'}</p>
           </div>
         </div>
       )}
