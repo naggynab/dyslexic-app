@@ -4,6 +4,13 @@ import axios from 'axios';
 import { useSpeech } from '../hooks/useSpeech'; 
 import '../styles/LearningPage.css';
 
+// Import images
+import anarImg from '../assets/images/letters/anar.jpg';
+import aamImg from '../assets/images/letters/aap.jpg';
+import ittaImg from '../assets/images/letters/itta.jpg';
+import parewaImg from '../assets/images/letters/parewa.webp';
+import kharayoImg from '../assets/images/letters/kharayo.jpg';
+
 function LearningPage({ settings }) {
   const navigate = useNavigate();
   const { speak } = useSpeech();  
@@ -20,14 +27,12 @@ function LearningPage({ settings }) {
 
   const fetchLessons = async () => {
     try {
-      // Call Python backend for adaptive content
       const response = await axios. get('http://localhost:5000/api/get-lesson');
       setLessons(response.data. lessons);
       setCurrentLesson(response.data.lessons[0]);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching lessons:', error);
-      // Fallback to static content
       loadStaticLessons();
     }
   };
@@ -39,7 +44,7 @@ function LearningPage({ settings }) {
         type: 'letter',
         letter: 'अ',
         audio: 'a',
-        image: '🍎',
+        image: anarImg, // ✅ Use imported image
         word: 'अनार',
         meaning: 'Pomegranate'
       },
@@ -48,8 +53,8 @@ function LearningPage({ settings }) {
         type: 'letter',
         letter: 'आ',
         audio: 'aa',
-        image: '🥭',
-        word: 'आँप',
+        image: aamImg, // ✅ Use imported image
+        word: 'आम',
         meaning: 'Mango'
       },
       {
@@ -57,7 +62,7 @@ function LearningPage({ settings }) {
         type: 'letter',
         letter: 'इ',
         audio: 'i',
-        image: '🧱',
+        image: ittaImg, // ✅ Use imported image
         word: 'इँटा',
         meaning: 'Brick'
       },
@@ -65,8 +70,8 @@ function LearningPage({ settings }) {
         id: 4,
         type: 'letter',
         letter: 'प',
-        audio: 'pa',
-        image: '🐦',
+        audio: 'ka',
+        image: parewaImg, // ✅ Use imported image
         word: 'परेवा',
         meaning: 'Pigeon'
       },
@@ -75,8 +80,8 @@ function LearningPage({ settings }) {
         type: 'letter',
         letter: 'ख',
         audio: 'kha',
-        image: '🐰',
-        word: 'खरायो',
+        image: kharayoImg, // ✅ Use imported image
+        word:  'खरायो',
         meaning: 'Rabbit'
       }
     ];
@@ -86,11 +91,10 @@ function LearningPage({ settings }) {
     setLoading(false);
   };
 
-  // ✅ FIXED: Updated speakText to work with custom hook
   const speakText = (text) => {
     speak(text, { 
       lang: 'ne-NP', 
-      rate:  settings?. audioSpeed || 0.8 
+      rate: settings?. audioSpeed || 0.8 
     });
   };
 
@@ -102,10 +106,8 @@ function LearningPage({ settings }) {
       setUserAnswer('');
       setFeedback('');
       
-      // Send progress to AI backend
       await sendProgressToAI(currentLesson.id, true);
     } else {
-      // Lesson complete
       updateProgress();
       alert('बधाई छ! तपाईंले पाठ पूरा गर्नुभयो! ');
       navigate('/');
@@ -133,7 +135,7 @@ function LearningPage({ settings }) {
       }, 2000);
     } else {
       setFeedback('❌ पुन: प्रयास गर्नुहोस्');
-      speakText('पुन: प्रयास गर्नुहोस्');
+      speakText('पुन:  प्रयास गर्नुहोस्');
       await sendProgressToAI(currentLesson.id, false);
     }
   };
@@ -141,7 +143,7 @@ function LearningPage({ settings }) {
   const sendProgressToAI = async (lessonId, correct) => {
     try {
       await axios.post('http://localhost:5000/api/record-progress', {
-        userId: 'user1', // Replace with actual user ID
+        userId:  'user1',
         lessonId,
         correct,
         timestamp: new Date().toISOString()
@@ -152,7 +154,7 @@ function LearningPage({ settings }) {
   };
 
   const updateProgress = () => {
-    const savedProgress = JSON.parse(localStorage.getItem('progress')) || { stars: 0, lessonsCompleted: 0 };
+    const savedProgress = JSON.parse(localStorage. getItem('progress')) || { stars: 0, lessonsCompleted: 0 };
     savedProgress.lessonsCompleted += 1;
     savedProgress. stars = Math.min(5, savedProgress.stars + 1);
     localStorage.setItem('progress', JSON.stringify(savedProgress));
@@ -168,7 +170,6 @@ function LearningPage({ settings }) {
 
   return (
     <div className="learning-container">
-      {/* Header */}
       <div className="learning-header">
         <button className="back-btn" onClick={() => navigate('/')}>
           ← पछाडि
@@ -182,17 +183,21 @@ function LearningPage({ settings }) {
         <span className="lesson-counter">{currentIndex + 1}/{lessons.length}</span>
       </div>
 
-      {/* Main Content */}
       <div className="lesson-content">
         <h1 className="letter-display">
-          {currentLesson. letter}
+          {currentLesson.letter}
           <button className="audio-btn-large" onClick={() => speakText(currentLesson.letter)}>
             🔊
           </button>
         </h1>
 
         <div className="image-display">
-          <span className="emoji-image">{currentLesson.image}</span>
+          {/* ✅ Replace emoji with actual image */}
+          <img 
+            src={currentLesson.image} 
+            alt={currentLesson.word}
+            className="lesson-image"
+          />
         </div>
 
         <div className="word-display">
@@ -203,7 +208,6 @@ function LearningPage({ settings }) {
           <p className="meaning">({currentLesson.meaning})</p>
         </div>
 
-        {/* Interactive Section */}
         <div className="interactive-section">
           <p className="instruction">यो अक्षर लेख्नुहोस्: </p>
           <input
@@ -224,7 +228,6 @@ function LearningPage({ settings }) {
           )}
         </div>
 
-        {/* Navigation */}
         <div className="lesson-navigation">
           <button 
             className="nav-btn-lesson" 
