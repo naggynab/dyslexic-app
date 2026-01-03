@@ -1,0 +1,169 @@
+.drag-drop-game {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #4FC3F7 0%, #81D4FA 100%);
+  padding: 20px;
+  position: relative;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.level-info {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 24px;
+  font-weight:  bold;
+}
+
+.score-display {
+  background: #FFA726;
+  color: white;
+  padding: 10px 20px;
+  border-radius:  20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.instruction-box {
+  background: white;
+  padding:  20px;
+  border-radius: 15px;
+  text-align: center;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.instruction-box h2 {
+  color: #FFA726;
+  font-size: 28px;
+  margin:  0;
+}
+
+.items-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom:  50px;
+  flex-wrap: wrap;
+}
+
+.draggable-item {
+  background: white;
+  padding: 20px;
+  border-radius:  20px;
+  cursor: grab;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.draggable-item:active {
+  cursor: grabbing;
+  transform: scale(1.1);
+}
+
+.item-emoji {
+  font-size: 60px;
+  margin-bottom:  10px;
+}
+
+. item-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+. baskets-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.basket {
+  background: rgba(255, 255, 255, 0.9);
+  border: 4px dashed #FFA726;
+  border-radius: 20px;
+  padding: 30px;
+  min-width: 180px;
+  min-height: 200px;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.basket:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: #FF7043;
+}
+
+.basket-icon {
+  font-size:  50px;
+  margin-bottom:  10px;
+}
+
+.basket-label {
+  font-size:  24px;
+  font-weight:  bold;
+  color: #FFA726;
+  margin-bottom: 15px;
+}
+
+.basket-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.basket-item {
+  font-size: 40px;
+}
+
+.feedback-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  padding: 40px 60px;
+  border-radius: 20px;
+  font-weight: bold;
+  z-index: 1000;
+  animation: fadeInOut 2s;
+}
+
+. feedback-message.correct {
+  background: #4CAF50;
+  color: white;
+}
+
+.feedback-message.incorrect {
+  background: #F44336;
+  color:  white;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+}
+
+@media (max-width: 768px) {
+  .items-container {
+    gap: 15px;
+  }
+  
+  .item-emoji {
+    font-size: 40px;
+  }
+  
+  .baskets-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
