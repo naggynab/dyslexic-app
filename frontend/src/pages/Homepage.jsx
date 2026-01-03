@@ -6,18 +6,15 @@ import '../styles/HomePage.css';
 function HomePage({ userName }) {
   const navigate = useNavigate();
   const { speak } = useSpeech();  // ✅ Use the hook
-  const [progress, setProgress] = useState({ stars: 0, lessonsCompleted: 0 });
+  const [progress] = useState(() => {
+    const savedProgress = localStorage.getItem('progress');
+    return savedProgress ? JSON.parse(savedProgress) : { stars: 0, lessonsCompleted: 0 };
+  });
 
   useEffect(() => {
-    // Load progress from localStorage
-    const savedProgress = localStorage. getItem('progress');
-    if (savedProgress) {
-      setProgress(JSON.parse(savedProgress));
-    }
-
     // ✅ Welcome message - directly use speak
     speak(`नमस्ते ${userName}`);
-  }, [userName]);
+  }, [userName, speak]);
 
   const handleContinueLearning = () => {
     navigate('/learning');

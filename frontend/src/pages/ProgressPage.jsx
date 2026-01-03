@@ -1,24 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/ProgressPage.css';
 
 function ProgressPage() {
   const navigate = useNavigate();
-  const [progress, setProgress] = useState({ stars: 0, lessonsCompleted: 0 });
+  const [progress] = useState(() => {
+    return JSON.parse(localStorage.getItem('progress')) || { stars: 0, lessonsCompleted: 0 };
+  });
   const [aiInsights, setAiInsights] = useState(null);
 
-  useEffect(() => {
-    loadProgress();
-    fetchAIInsights();
-  }, []);
-
-  const loadProgress = () => {
-    const savedProgress = JSON.parse(localStorage.getItem('progress')) || { stars: 0, lessonsCompleted: 0 };
-    setProgress(savedProgress);
-  };
-
-  const fetchAIInsights = async () => {
+  const fetchAIInsights = useCallback(async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/get-insights', {
         params: { userId:  'user1' }
@@ -27,7 +19,11 @@ function ProgressPage() {
     } catch (error) {
       console.error('Error fetching AI insights:', error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchAIInsights();
+  }, [fetchAIInsights]);
 
   return (
     <div className="progress-container">

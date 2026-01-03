@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';  // ✅ Added missing import
 import { useSpeech } from '../hooks/useSpeech';  // ✅ Correct import
@@ -14,25 +14,7 @@ function LearningPage({ settings }) {
   const [feedback, setFeedback] = useState('');
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchLessons();
-  }, []);
-
-  const fetchLessons = async () => {
-    try {
-      // Call Python backend for adaptive content
-      const response = await axios. get('http://localhost:5000/api/get-lesson');
-      setLessons(response.data. lessons);
-      setCurrentLesson(response.data.lessons[0]);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching lessons:', error);
-      // Fallback to static content
-      loadStaticLessons();
-    }
-  };
-
-  const loadStaticLessons = () => {
+  const loadStaticLessons = useCallback(() => {
     const staticLessons = [
       {
         id: 1,
@@ -84,7 +66,25 @@ function LearningPage({ settings }) {
     setLessons(staticLessons);
     setCurrentLesson(staticLessons[0]);
     setLoading(false);
-  };
+  }, []);
+
+  const fetchLessons = useCallback(async () => {
+    try {
+      // Call Python backend for adaptive content
+      const response = await axios. get('http://localhost:5000/api/get-lesson');
+      setLessons(response.data. lessons);
+      setCurrentLesson(response.data.lessons[0]);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching lessons:', error);
+      // Fallback to static content
+      loadStaticLessons();
+    }
+  }, [loadStaticLessons]);
+
+  useEffect(() => {
+    fetchLessons();
+  }, [fetchLessons]);
 
   // ✅ FIXED: Updated speakText to work with custom hook
   const speakText = (text) => {
